@@ -1,10 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
 
-import { UserSlice } from "./UserSlice";
+import { DataSlice } from "./DataSlice";
+import { SidebarSlice } from "./SidebarSlice";
+import { TableSlice } from "./TableSlice";
 
 export const store = configureStore({
   reducer: {
-    user: UserSlice.reducer,
+    data: DataSlice.reducer,
+    sidebar: SidebarSlice.reducer,
+    table: TableSlice.reducer,
   },
 });
 

@@ -1,21 +1,22 @@
-import { useAppSelector } from "./redux/hooks";
-import { UserData } from "./redux/UserSlice";
+import { useAppDispatch } from "./redux/hooks";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./index.css";
+import { Table } from "./table/Table";
+import Sidebar from "./Sidebar";
+import Header from "./Header";
 
-export const App: React.FC = () => {
-  interface IMix {
-    name: string;
-    id: number;
-    phone: string;
-    email: string;
-    city: string;
-  } // спросить у Паши, есть ли возможность не перечислять каждое поле, ведь их может быть и 100
+export const App = (): any => {
+  const dispatch = useAppDispatch();
 
-  const rows = useAppSelector((state) => state.user.content);
   return (
-    <div>
-      {Object.values(rows).map((item: IMix, index: number) => {
-        return <div>{item.name}</div>;
-      })}
+    <div className="wrapper">
+      <div className="wrapper__container">
+        <Sidebar />
+        <div className="main-content">
+          <Header />
+          <Table />
+        </div>
+      </div>
     </div>
   );
 };
