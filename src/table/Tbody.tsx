@@ -1,14 +1,19 @@
-import React from "react";
-import { useAppSelector } from "../redux/hooks";
+type MTProps<T> = {
+  // columns: Array<{
+  //   name: string;
+  //   property: keyof T;
+  // }>;
+  data: T[];
+};
 
-export default function Tbody() {
-  const tableContent = useAppSelector((c) => c.table.tableContent);
+export default function Tbody<T>(p: MTProps<T>) {
+  console.log(p.data);
   return (
     <tbody>
-      {Object.values(tableContent).map((td: any, index: number) => {
+      {p.data.map((td: any, index: number) => {
         return (
           <tr>
-            {Object.keys(td).map((item: any) => {
+            {td.map((item: any) => {
               return <td>{td[item]}</td>;
             })}
           </tr>

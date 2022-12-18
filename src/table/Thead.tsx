@@ -1,11 +1,17 @@
 import { useAppSelector } from "../redux/hooks";
 
-export default function Thead() {
-  const tableHeader = useAppSelector((h) => h.table.tableHeader);
+type MTProps<T> = {
+  columns: Array<{
+    name: string;
+    property: keyof T;
+  }>;
+};
+
+export default function Thead<T>(p: MTProps<T>) {
   return (
     <thead>
       <tr>
-        {Object.values(tableHeader).map((item: any, index) => {
+        {Object.values(p.columns).map((item: any, index) => {
           return <th scope="col">{item}</th>;
         })}
       </tr>
