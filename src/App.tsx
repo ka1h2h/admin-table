@@ -7,6 +7,10 @@ import Header from "./Header";
 import { Route, Routes } from "react-router-dom";
 import ReserveTable from "./table/ReserveTable";
 import GuestsTable from "./table/GuestsTable";
+import RestTable from "./table/RestTable";
+import BuyerTable from "./table/BuyerTable";
+import TranferTable from "./table/TransferTable";
+import CleaningTable from "./table/CleaningTable";
 
 export const App = (): any => {
   const dispatch = useAppDispatch();
@@ -20,6 +24,10 @@ export const App = (): any => {
           <Routes>
             <Route path="guests" element={<GuestsTable />} />
             <Route path="reserve" element={<ReserveTable />} />
+            <Route path="restaurant" element={<RestTable />} />
+            <Route path="buyer" element={<BuyerTable />} />
+            <Route path="transfer" element={<TranferTable />} />
+            <Route path="cleaning" element={<CleaningTable />} />
           </Routes>
         </div>
       </div>
