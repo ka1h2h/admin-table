@@ -1,9 +1,12 @@
 import { useAppDispatch } from "./redux/hooks";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
-import { Table } from "./table/Table";
+
 import Sidebar from "./Sidebar";
 import Header from "./Header";
+import { Route, Routes } from "react-router-dom";
+import ReserveTable from "./table/ReserveTable";
+import GuestsTable from "./table/GuestsTable";
 
 export const App = (): any => {
   const dispatch = useAppDispatch();
@@ -14,7 +17,10 @@ export const App = (): any => {
         <Sidebar />
         <div className="main-content">
           <Header />
-          <Table />
+          <Routes>
+            <Route path="guests" element={<GuestsTable />} />
+            <Route path="reserve" element={<ReserveTable />} />
+          </Routes>
         </div>
       </div>
     </div>

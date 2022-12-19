@@ -1,14 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import data from "../data.json";
 
-type TGuests = {
-  id: number;
-  name: string;
-  phone: string;
-  email: string;
-  city: string;
-};
-
 class GuestsColumn {
   public id: number;
   public name: string;
@@ -19,7 +11,7 @@ class GuestsColumn {
   static guestsFields() {
     const d = data.guests;
     return d.content.map((item) => {
-      const newobj: TGuests = new GuestsColumn();
+      const newobj = new GuestsColumn();
       newobj.id = item.id;
       newobj.name = item.name;
       newobj.phone = item.phone;
@@ -30,13 +22,6 @@ class GuestsColumn {
   }
 }
 
-type TReserve = {
-  id: number;
-  name: string;
-  date: string;
-  phone: string;
-};
-
 class ReserveColumn {
   public id: number;
   public name: string;
@@ -46,7 +31,7 @@ class ReserveColumn {
   static reserveFields() {
     const d = data.reserve;
     return d.content.map((item) => {
-      const newobj: TReserve = new ReserveColumn();
+      const newobj = new ReserveColumn();
       newobj.id = item.id;
       newobj.name = item.name;
       newobj.date = item.date;
@@ -72,12 +57,11 @@ class DataController {
 export const TableSlice = createSlice({
   name: "user",
   initialState: {
-    tableHeader: {},
-    tableContent: [],
+    tableContent: data,
   },
   reducers: {
     tableObserver: (state, action) => {
-      state.tableContent = DataController.field(action.payload);
+      // state.tableContent = DataController.field(action.payload);
     },
   },
 });

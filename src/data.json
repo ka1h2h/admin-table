@@ -2,13 +2,15 @@
   "guests": {
     "table": "Гости",
     "link": "guests",
-    "fields": {
-      "id": "#",
-      "name": "Имя",
-      "phone": "Телефон",
-      "email": "Почта",
-      "city": "Город"
-    },
+    "fields": [
+      {
+        "id": "#",
+        "name": "Имя",
+        "phone": "Телефон",
+        "email": "Почта",
+        "city": "Город"
+      }
+    ],
     "content": [
       {
         "id": 1,

@@ -20,10 +20,12 @@ module.exports = {
     filename: "bundle.js",
     path: path.resolve(__dirname, "dist"),
     assetModuleFilename: "assets/[hash][ext][query]",
+    publicPath: "/",
   },
   devServer: {
     port: 3033,
     hot: true,
+    historyApiFallback: true,
   },
   stats: {
     errorDetails: true,
