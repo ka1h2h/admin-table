@@ -1,0 +1,10 @@
+[
+  {
+    "table": "Гости",
+    "link": "guests"
+  },
+  {
+    "table": "Бронирования",
+    "link": "reserve"
+  }
+]

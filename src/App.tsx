@@ -1,34 +1,22 @@
 import { useAppDispatch } from "./redux/hooks";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
-
-import Sidebar from "./Sidebar";
 import Header from "./Header";
-import { Route, Routes } from "react-router-dom";
-import ReserveTable from "./table/ReserveTable";
-import GuestsTable from "./table/GuestsTable";
-import RestTable from "./table/RestTable";
-import BuyerTable from "./table/BuyerTable";
-import TranferTable from "./table/TransferTable";
-import CleaningTable from "./table/CleaningTable";
+import SidebarController from "./sidebar/SidebarController";
+import TableController from "./table/TableController";
+import { useState } from "react";
 
 export const App = (): any => {
-  const dispatch = useAppDispatch();
+  const [state, setState] = useState();
 
   return (
     <div className="wrapper">
       <div className="wrapper__container">
-        <Sidebar />
+        <SidebarController setState={setState} />
+        {/* <Sidebar /> */}
         <div className="main-content">
           <Header />
-          <Routes>
-            <Route path="guests" element={<GuestsTable />} />
-            <Route path="reserve" element={<ReserveTable />} />
-            <Route path="restaurant" element={<RestTable />} />
-            <Route path="buyer" element={<BuyerTable />} />
-            <Route path="transfer" element={<TranferTable />} />
-            <Route path="cleaning" element={<CleaningTable />} />
-          </Routes>
+          <TableController state={state} />
         </div>
       </div>
     </div>

@@ -1,31 +1,24 @@
 import { createSlice } from "@reduxjs/toolkit";
-import data from "./../data.json";
-import { DataBase } from "./DataSlice";
+import data from "./../data/menu-data.json";
 
-interface ISidebar {
-  link: string;
-  table: string;
-}
+export class SidebarItem {
+  public table: string;
+  public link: string;
 
-export class SidebarController {
-  static items: {};
-  static sidebarItemsLoader() {
-    try {
-      SidebarController.items = DataBase.data;
-      return Object.values(SidebarController.items).map((item: ISidebar) => {
-        return (SidebarController.items = item);
-      });
-    } catch (e) {
-      console.log(e);
-    }
-    return SidebarController.items;
+  static load() {
+    return data.map((item) => {
+      const sidebarItem = new SidebarItem();
+      sidebarItem.table = item.table;
+      sidebarItem.link = item.link;
+      return sidebarItem;
+    });
   }
 }
 
 export const SidebarSlice = createSlice({
-  name: "user",
+  name: "sidebar",
   initialState: {
-    sideBar: {},
+    sideBar: SidebarItem.load(),
   },
   reducers: {},
 });

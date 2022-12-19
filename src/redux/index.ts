@@ -1,14 +1,18 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
+import { GuestSlice } from "./GuestsSlice";
+import { ReserveSlice } from "./ReserveSlice";
 
-import { DataSlice } from "./DataSlice";
 import { SidebarSlice } from "./SidebarSlice";
-import { TableSlice } from "./TableSlice";
+
+const customizedMiddleware = getDefaultMiddleware({
+  serializableCheck: false,
+});
 
 export const store = configureStore({
   reducer: {
-    data: DataSlice.reducer,
     sidebar: SidebarSlice.reducer,
-    table: TableSlice.reducer,
+    reserve: ReserveSlice.reducer,
+    guests: GuestSlice.reducer,
   },
 });
 
