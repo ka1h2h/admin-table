@@ -1,8 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { getGuests } from "../redux/GuestsSlice";
 import { useAppSelector } from "../redux/hooks";
 import Table from "./table-ui/Table";
 
-export default function GuestsTable() {
+type MTProps = {
+  link: string;
+};
+
+export default function GuestsTable<T>(p: MTProps) {
   const guestsData = useAppSelector((s) => s.guests.guests);
-  return <Table data={guestsData} />;
+  const guestsTableColumns = useAppSelector((c) => c.guests.columns);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getGuests());
+  }, []);
+  return <Table columns={guestsTableColumns} data={guestsData} />;
 }

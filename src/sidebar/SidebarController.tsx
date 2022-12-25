@@ -9,9 +9,7 @@ type MTProps = {
 export default function SidebarController<T>(p: MTProps) {
   const sidebarItems = useAppSelector((s) => s.sidebar.sideBar);
 
-  function eventHanlder(currentLink: string) {
-    return p.setState(currentLink);
-  }
+  const eventHanlder = (currentLink: string) => p.setState(currentLink);
 
   return (
     <div className="sidebar">

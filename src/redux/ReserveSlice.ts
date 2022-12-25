@@ -18,10 +18,29 @@ export class Reserve {
     });
   }
 }
+
+export class Columns {
+  public name: string;
+  constructor(name: string) {
+    this.name = name;
+  }
+
+  static load() {
+    const columnsData = [
+      new Columns("#"),
+      new Columns("Имя"),
+      new Columns("Дата"),
+      new Columns("Телефон"),
+    ];
+    return columnsData;
+  }
+}
+
 export const ReserveSlice = createSlice({
   name: "reserve",
   initialState: {
     reserve: Reserve.load(),
+    columns: Columns.load(),
   },
   reducers: {},
 });
