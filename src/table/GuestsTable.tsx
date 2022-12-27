@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { getGuests } from "../redux/GuestsSlice";
+import { getGuestById, getGuests } from "../redux/guest/async";
 import { useAppSelector } from "../redux/hooks";
 import Table from "./table-ui/Table";
 
@@ -16,5 +16,6 @@ export default function GuestsTable<T>(p: MTProps) {
   useEffect(() => {
     dispatch(getGuests());
   }, []);
+
   return <Table columns={guestsTableColumns} data={guestsData} />;
 }

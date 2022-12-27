@@ -1,17 +1,15 @@
-import { useState } from "react";
-import { Route, Routes, useParams } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import AddFormController from "./forms/guests-forms/add-form/AddFormController";
 import EditFormController from "./forms/guests-forms/edit-form/EditFormController";
 // import ReserveForm from "../forms/ReserveForm";
-import GuestsTable from "./GuestsTable";
 // import ReserveTable from "./ReserveTable";
+import GuestsTable from "./GuestsTable";
 
 type MTProps = {
   state: string;
 };
 
 export default function TableController<T>(p: MTProps) {
-  console.log(p.state);
   return (
     <Routes>
       <Route path="guests" element={<GuestsTable link={p.state} />} />

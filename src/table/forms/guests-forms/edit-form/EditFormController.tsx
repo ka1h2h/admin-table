@@ -1,35 +1,37 @@
-import { useState } from "react";
-import { NavLink } from "react-router-dom";
-import { addGuest } from "../../../../redux/GuestsSlice";
+import { useEffect, useState } from "react";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
+import { editGuest, getGuestById } from "../../../../redux/guest/async";
 import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
 import EditForm from "./EditForm";
 
-interface IGuest {
-  [name: string]: string;
+export interface IGuestEdit {
+  [name: string]: Object;
 }
 
 export default function EditFormController() {
-  const [value, setValue] = useState("");
   const formData = useAppSelector((f) => f.guests.forms);
+  const guestById: IGuestEdit = useAppSelector((g) => g.guests.guestById);
+  console.log(guestById);
   const dispatch = useAppDispatch();
-  const newGuest: IGuest = {} as IGuest;
+  const { id } = useParams();
 
-  const handler = (fieldName: string, fieldValue: string) => {
-    newGuest[fieldName] = fieldValue;
+  useEffect(() => {
+    dispatch(getGuestById(id));
+  }, []);
+
+  const handler = (fieldName: string, fieldValue: string): void => {
+    guestById[fieldName] = fieldValue;
   };
 
-  const sender = () => dispatch(addGuest(newGuest));
+  const sender = () => dispatch(editGuest({ id, guestById }));
 
   return (
     <>
-      <EditForm
-        form={formData}
-        handler={handler}
-        value={value}
-        fetch={newGuest}
-      />
+      <EditForm form={formData} handler={handler} guestById={guestById} />
       <button className="btn btn-primary mx-5 mt-2" onClick={sender}>
-        <NavLink to="/guests">Сохранить</NavLink>
+        <NavLink className="text-white" to="/guests">
+          Сохранить
+        </NavLink>
       </button>
     </>
   );

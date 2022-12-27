@@ -6,9 +6,8 @@ type MTProps<T> = {
     placeholder: string;
     field: string;
   }>;
-  value: any;
-  handler: any;
-  fetch: any;
+  handler(fieldName: string, fieldValue: string): void;
+  guestById: any;
 };
 
 export default function EditForm<T>(p: MTProps<T>) {
@@ -30,7 +29,7 @@ export default function EditForm<T>(p: MTProps<T>) {
                   id="validationCustom01"
                   placeholder={item.placeholder}
                   onChange={(e) => p.handler(item.field, e.target.value)}
-                  value={p.fetch[item.field]}
+                  defaultValue={p.guestById[item.field]}
                   required
                 />
               </>

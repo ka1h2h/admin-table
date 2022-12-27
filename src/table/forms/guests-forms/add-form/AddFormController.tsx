@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { addGuest } from "../../../../redux/GuestsSlice";
+import { addGuest } from "../../../../redux/guest/async";
+
 import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
 import AddForm from "./AddForm";
-import GuestsFormAdd from "./AddForm";
 
-interface IGuest {
+export interface IGuestAdd {
   [name: string]: string;
 }
 
@@ -13,13 +13,15 @@ export default function AddFormController() {
   const [value, setValue] = useState("");
   const formData = useAppSelector((f) => f.guests.forms);
   const dispatch = useAppDispatch();
-  const newGuest: IGuest = {} as IGuest;
+  const newGuest: IGuestAdd = {} as IGuestAdd;
 
   const handler = (fieldName: string, fieldValue: string) => {
     newGuest[fieldName] = fieldValue;
   };
 
-  const sender = () => dispatch(addGuest(newGuest));
+  const sender = () => {
+    dispatch(addGuest(newGuest));
+  };
 
   return (
     <>
@@ -27,10 +29,13 @@ export default function AddFormController() {
         form={formData}
         handler={handler}
         value={value}
-        fetch={newGuest}
+        newGuest={newGuest}
       />
+
       <button className="btn btn-primary mx-5 mt-2" onClick={sender}>
-        <NavLink to="/guests">Сохранить</NavLink>
+        <NavLink className="text-white" to="/guests">
+          Создать
+        </NavLink>
       </button>
     </>
   );

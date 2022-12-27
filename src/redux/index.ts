@@ -1,12 +1,8 @@
 import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
-import { GuestSlice } from "./GuestsSlice";
+import { GuestSlice } from "./guest/GuestsSlice";
 import { ReserveSlice } from "./ReserveSlice";
 
 import { SidebarSlice } from "./SidebarSlice";
-
-const customizedMiddleware = getDefaultMiddleware({
-  serializableCheck: false,
-});
 
 export const store = configureStore({
   reducer: {

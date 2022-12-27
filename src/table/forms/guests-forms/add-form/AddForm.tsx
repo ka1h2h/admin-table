@@ -6,9 +6,9 @@ type MTProps<T> = {
     placeholder: string;
     field: string;
   }>;
-  value: any;
-  handler: any;
-  fetch: any;
+  value: string;
+  handler(fieldName: string, fieldValue: string): void;
+  newGuest: any;
 };
 
 export default function AddForm<T>(p: MTProps<T>) {
@@ -30,7 +30,7 @@ export default function AddForm<T>(p: MTProps<T>) {
                   id="validationCustom01"
                   placeholder={item.placeholder}
                   onChange={(e) => p.handler(item.field, e.target.value)}
-                  value={p.fetch[item.field]}
+                  value={p.newGuest[item.field]}
                   required
                 />
               </>
