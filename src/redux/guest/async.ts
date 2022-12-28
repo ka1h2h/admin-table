@@ -18,9 +18,9 @@ export const getGuests: any = createAsyncThunk(
   }
 );
 
-export const getGuestById: any = createAsyncThunk(
+export const getGuestById = createAsyncThunk(
   "fetchById/getGuestById",
-  async function (id) {
+  async function (id: string) {
     try {
       const response = await axios.get(`http://localhost:3000/guests/${id}`, {
         headers: { "Content-type": "application/json" },

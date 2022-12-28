@@ -1,4 +1,4 @@
-export interface IGuest {
+interface IGuest {
   id: number;
   name: string;
   surname: string;
@@ -8,37 +8,32 @@ export interface IGuest {
 }
 
 export class Guest {
-  public id: number;
-  public name: string;
-  public surname: string;
-  public phone: string;
-  public email: string;
-  public city: string;
-
-  static load(data: []) {
+  static load(data: IGuest[]): IGuest[] {
     return data.map((item: IGuest) => {
-      const guest: Guest = new Guest();
-      guest.id = item.id;
-      guest.name = item.name;
-      guest.surname = item.surname;
-      guest.phone = item.phone;
-      guest.email = item.email;
-      guest.city = item.city;
-      return guest;
+      return {
+        id: item.id,
+        name: item.name,
+        surname: item.surname,
+        phone: item.phone,
+        email: item.email,
+        city: item.city,
+      };
     });
   }
 
-  static loadById(data: any) {
-    const guest: IGuest = new Guest();
+  static loadById(data: IGuest[]): IGuest {
+    let guestById: IGuest;
     data.forEach((item: IGuest) => {
-      (guest.id = item.id),
-        (guest.name = item.name),
-        (guest.surname = item.surname),
-        (guest.phone = item.phone),
-        (guest.email = item.email),
-        (guest.city = item.city);
+      guestById = {
+        id: item.id,
+        name: item.name,
+        surname: item.surname,
+        phone: item.phone,
+        email: item.email,
+        city: item.city,
+      };
     });
-    return guest;
+    return guestById;
   }
 }
 

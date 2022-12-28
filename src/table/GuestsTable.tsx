@@ -10,6 +10,7 @@ type MTProps = {
 
 export default function GuestsTable<T>(p: MTProps) {
   const guestsData = useAppSelector((s) => s.guests.guests);
+  console.log(guestsData);
   const guestsTableColumns = useAppSelector((c) => c.guests.columns);
   const dispatch = useDispatch();
 
