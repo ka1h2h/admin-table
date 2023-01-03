@@ -1,13 +1,9 @@
-import { useParams } from "react-router-dom";
+import { GuestsForm } from "../../../../redux/guest/classes";
 
 type MTProps<T> = {
-  form: Array<{
-    label: string;
-    placeholder: string;
-    field: string;
-  }>;
-  handler(fieldName: string, fieldValue: string): void;
-  guestById: any;
+  form: GuestsForm[];
+  currentGuest: { [key: string]: string };
+  eventsHandler(fieldName: string, fieldValue: string): void;
 };
 
 export default function EditForm<T>(p: MTProps<T>) {
@@ -15,7 +11,7 @@ export default function EditForm<T>(p: MTProps<T>) {
     <form className="needs-validation">
       <div className="form-row">
         <div className="col-md-4 mb-3 w-25 mx-5 mt-5">
-          {p.form.map((item, index) => {
+          {p.form.map((item: GuestsForm, index: number) => {
             return (
               <>
                 <label htmlFor="validationCustom01" className="mb-2">
@@ -28,8 +24,8 @@ export default function EditForm<T>(p: MTProps<T>) {
                   className="form-control mb-3"
                   id="validationCustom01"
                   placeholder={item.placeholder}
-                  onChange={(e) => p.handler(item.field, e.target.value)}
-                  defaultValue={p.guestById[item.field]}
+                  defaultValue={p.currentGuest[item.field]}
+                  onChange={(e) => p.eventsHandler(item.field, e.target.value)}
                   required
                 />
               </>

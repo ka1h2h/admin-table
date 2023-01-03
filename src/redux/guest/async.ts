@@ -1,30 +1,20 @@
-import { IGuestEdit } from "./../../table/forms/guests-forms/edit-form/EditFormController";
-import { IGuestAdd } from "./../../table/forms/guests-forms/add-form/AddFormController";
+import { GuestListDTO, GuestsAPI } from "./classes";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-export const getGuests: any = createAsyncThunk(
+export const getAllGuests: any = createAsyncThunk(
   "fetch/getGuests",
   async function () {
-    try {
-      const response = await axios.get(`http://localhost:3000/guests`, {
-        headers: { "Content-type": "application/json" },
-      });
-      const data = await response.data.data;
-      return data;
-    } catch (e) {
-      console.error(e);
-    }
+    const response: GuestListDTO = await GuestsAPI.getGuestsList();
+    return response;
   }
 );
 
-export const getGuestById = createAsyncThunk(
+export const getCurrentGuestById = createAsyncThunk(
   "fetchById/getGuestById",
   async function (id: string) {
     try {
-      const response = await axios.get(`http://localhost:3000/guests/${id}`, {
-        headers: { "Content-type": "application/json" },
-      });
+      const response = await axios.get(`http://localhost:3000/guests/${id}`);
       const data = await response.data.data;
       return data;
     } catch (e) {
@@ -35,7 +25,7 @@ export const getGuestById = createAsyncThunk(
 
 export const addGuest = createAsyncThunk(
   "addFetch/addGuest",
-  async function (body: IGuestAdd) {
+  async function (body: {}) {
     try {
       await axios.post(`http://localhost:3000/guests/add`, body);
     } catch (e) {
@@ -46,11 +36,12 @@ export const addGuest = createAsyncThunk(
 
 export const editGuest = createAsyncThunk(
   "editFetch/editGuest",
-  async function (body: IGuestEdit) {
+  async function (body: any) {
+    console.log(body);
     try {
       await axios.post(
         `http://localhost:3000/guests/edit/${body.id}`,
-        body.guestById
+        body.currentGuestCopy
       );
     } catch (e) {
       console.error(e);

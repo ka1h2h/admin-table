@@ -1,5 +1,7 @@
+import axios from "axios";
+
 interface IGuest {
-  id: number;
+  id: string;
   name: string;
   surname: string;
   phone: string;
@@ -7,33 +9,38 @@ interface IGuest {
   city: string;
 }
 
-export class Guest {
-  static load(data: IGuest[]): IGuest[] {
-    return data.map((item: IGuest) => {
-      return {
-        id: item.id,
-        name: item.name,
-        surname: item.surname,
-        phone: item.phone,
-        email: item.email,
-        city: item.city,
-      };
-    });
-  }
+export interface GuestListDTO {
+  list: IGuest[];
+}
 
-  static loadById(data: IGuest[]): IGuest {
-    let guestById: IGuest;
-    data.forEach((item: IGuest) => {
-      guestById = {
-        id: item.id,
-        name: item.name,
-        surname: item.surname,
-        phone: item.phone,
-        email: item.email,
-        city: item.city,
-      };
-    });
-    return guestById;
+export class GuestsDataValidator {
+  static inspect(data: GuestListDTO) {
+    if (Array.isArray(data.list)) {
+      return data.list.map((d: IGuest) => {
+        const guest = {} as IGuest;
+        (guest.id = d.id || ""),
+          (guest.name = d.name || ""),
+          (guest.surname = d.surname || ""),
+          (guest.phone = d.phone || ""),
+          (guest.email = d.email || ""),
+          (guest.city = d.city || "");
+        return guest;
+      });
+    } else {
+      return [];
+    }
+  }
+}
+
+export class GuestsAPI {
+  static async getGuestsList(): Promise<GuestListDTO> {
+    try {
+      const response = await axios.get(`http://localhost:3000/guests`);
+      const data = await response.data;
+      return data;
+    } catch (e) {
+      console.error(e);
+    }
   }
 }
 
@@ -68,7 +75,7 @@ export class GuestsForm {
   }
 
   static load() {
-    const formsInputsData = [
+    const formsInputsData: GuestsForm[] = [
       new GuestsForm("Имя", "Имя", "name"),
       new GuestsForm("Фамилия", "Фамилия", "surname"),
       new GuestsForm("Телефон", "Номер", "phone"),

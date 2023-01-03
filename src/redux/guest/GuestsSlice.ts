@@ -1,26 +1,34 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { getGuests, getGuestById, addGuest } from "./async";
-import { Guest, Columns, GuestsForm } from "./classes";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { getAllGuests, getCurrentGuestById, addGuest } from "./async";
+import {
+  Columns,
+  GuestListDTO,
+  GuestsDataValidator,
+  GuestsForm,
+} from "./classes";
 
 export const GuestSlice = createSlice({
   name: "fetch",
   initialState: {
-    guests: [],
-    guestById: {},
+    allGuests: [],
+    currentGuest: [],
     columns: Columns.load(),
     forms: GuestsForm.load(),
   },
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(getGuests.fulfilled, (state, action) => {
-      state.guests = Guest.load(action.payload);
-      state.guestById = {};
+    builder.addCase(
+      getAllGuests.fulfilled,
+      (s, action: PayloadAction<GuestListDTO>) => {
+        s.allGuests = GuestsDataValidator.inspect(action.payload);
+        s.currentGuest = [];
+      }
+    );
+    builder.addCase(getCurrentGuestById.fulfilled, (s, action) => {
+      s.currentGuest = action.payload;
     });
-    builder.addCase(getGuestById.fulfilled, (state, action) => {
-      state.guestById = Guest.loadById(action.payload);
-    });
-    builder.addCase(addGuest.fulfilled, (state, action) => {
-      state.guestById = {};
+    builder.addCase(addGuest.fulfilled, (s, action) => {
+      s.currentGuest = [];
     });
   },
 });

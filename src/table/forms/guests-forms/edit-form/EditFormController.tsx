@@ -1,38 +1,43 @@
-import { useEffect, useState } from "react";
-import { NavLink, useNavigate, useParams } from "react-router-dom";
-import { editGuest, getGuestById } from "../../../../redux/guest/async";
-import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
-import EditForm from "./EditForm";
+// import { useEffect } from "react";
+// import { NavLink, useParams } from "react-router-dom";
+// import { editGuest, getCurrentGuestById } from "../../../../redux/guest/async";
+// import { IGuest } from "../../../../redux/guest/classes";
 
-export interface IGuestEdit {
-  [name: string]: Object;
-}
+// import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
+// import EditForm from "./EditForm";
 
-export default function EditFormController() {
-  const formData = useAppSelector((f) => f.guests.forms);
-  const guestById: IGuestEdit = useAppSelector((g) => g.guests.guestById);
-  console.log(guestById);
-  const dispatch = useAppDispatch();
-  const { id } = useParams();
+// export default function EditFormController() {
+//   const { id } = useParams();
+//   const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    dispatch(getGuestById(id));
-  }, []);
+//   const formData = useAppSelector((f) => f.guests.forms);
+//   const currentGuest = useAppSelector((g) => g.guests.currentGuest);
+//   const currentGuestCopy = JSON.parse(JSON.stringify(currentGuest));
 
-  const handler = (fieldName: string, fieldValue: string): void => {
-    guestById[fieldName] = fieldValue;
-  };
+//   useEffect(() => {
+//     dispatch(getCurrentGuestById(id));
+//   }, []);
 
-  const sender = () => dispatch(editGuest({ id, guestById }));
+//   const eventsHandler = (fieldName: keyof IGuest, fieldValue: string) => {
+//     currentGuestCopy[fieldName] = fieldValue;
+//   };
 
-  return (
-    <>
-      <EditForm form={formData} handler={handler} guestById={guestById} />
-      <button className="btn btn-primary mx-5 mt-2" onClick={sender}>
-        <NavLink className="text-white" to="/guests">
-          Сохранить
-        </NavLink>
-      </button>
-    </>
-  );
-}
+//   const sender = (): void => {
+//     dispatch(editGuest({ id, currentGuestCopy }));
+//   };
+
+//   return (
+//     <>
+//       <EditForm
+//         form={formData}
+//         eventsHandler={eventsHandler}
+//         currentGuest={currentGuestCopy}
+//       />
+//       <button className="btn btn-primary mx-5 mt-2" onClick={sender}>
+//         <NavLink className="text-white" to="/guests">
+//           Сохранить
+//         </NavLink>
+//       </button>
+//     </>
+//   );
+// }
