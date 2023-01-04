@@ -1,4 +1,7 @@
 import axios from "axios";
+import { validateSync } from "class-validator";
+
+import { MaxLength, MinLength, ArrayNotEmpty } from "class-validator";
 
 interface IGuest {
   id: string;
@@ -9,26 +12,53 @@ interface IGuest {
   city: string;
 }
 
-export interface GuestListDTO {
+export class GuestListDTO {
+  @ArrayNotEmpty()
+  @MinLength(1)
+  @MaxLength(999, {
+    each: true,
+  })
   list: IGuest[];
+}
+
+export class Guest {
+  id: string;
+
+  @MinLength(2)
+  @MaxLength(16)
+  name: string;
+
+  @MinLength(3)
+  @MaxLength(16)
+  surname: string;
+
+  @MinLength(12)
+  @MaxLength(12)
+  phone: string;
+
+  @MinLength(10)
+  @MaxLength(20)
+  email: string;
+
+  @MinLength(2)
+  @MaxLength(16)
+  city: string;
 }
 
 export class GuestsDataValidator {
   static inspect(data: GuestListDTO) {
-    if (Array.isArray(data.list)) {
-      return data.list.map((d: IGuest) => {
-        const guest = {} as IGuest;
-        (guest.id = d.id || ""),
-          (guest.name = d.name || ""),
-          (guest.surname = d.surname || ""),
-          (guest.phone = d.phone || ""),
-          (guest.email = d.email || ""),
-          (guest.city = d.city || "");
-        return guest;
-      });
-    } else {
-      return [];
-    }
+    return data.list.map((d: Guest) => {
+      const guest = new Guest();
+      (guest.id = d.id),
+        (guest.name = d.name),
+        (guest.surname = d.surname),
+        (guest.phone = d.phone),
+        (guest.email = d.email),
+        (guest.city = d.city);
+
+      const validation = validateSync(guest);
+      return validation.length > 0 ? [] : guest;
+    });
   }
 }
 
