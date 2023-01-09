@@ -48,7 +48,7 @@ export class Guest {
 
 export class GuestsDataValidator {
   static inspect(data: GuestListDTO) {
-    return data.list.reduce((newarr, d: Guest): Guest[] => {
+    return data.list.reduce((newarr: Guest[], d: Guest): Guest[] => {
       const guest = new Guest();
       (guest.id = d.id),
         (guest.name = d.name),
