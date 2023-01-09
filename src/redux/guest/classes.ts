@@ -1,3 +1,4 @@
+import { arrayExpression } from "@babel/types";
 import axios from "axios";
 import { validateSync } from "class-validator";
 
@@ -47,7 +48,7 @@ export class Guest {
 
 export class GuestsDataValidator {
   static inspect(data: GuestListDTO) {
-    return data.list.map((d: Guest) => {
+    return data.list.reduce((newarr, d: Guest): Guest[] => {
       const guest = new Guest();
       (guest.id = d.id),
         (guest.name = d.name),
@@ -57,8 +58,11 @@ export class GuestsDataValidator {
         (guest.city = d.city);
 
       const validation = validateSync(guest);
-      return validation.length > 0 ? [] : guest;
-    });
+      if (validation.length === 0) {
+        newarr.push(guest);
+      }
+      return newarr;
+    }, []);
   }
 }
 

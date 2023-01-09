@@ -21,6 +21,7 @@ export const GuestSlice = createSlice({
       getAllGuests.fulfilled,
       (s, action: PayloadAction<GuestListDTO>) => {
         s.allGuests = GuestsDataValidator.inspect(action.payload);
+        console.log(s.allGuests);
         s.currentGuest = [];
       }
     );
